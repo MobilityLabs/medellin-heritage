@@ -1,9 +1,10 @@
 'use strict';
 
-var Reflux = require('reflux');
-var _      = require('lodash');
-var Actions = require('../actions');
-var SeedData = require('../seedData').features;
+var Reflux    = require('reflux');
+var _         = require('lodash');
+var Actions   = require('../actions');
+var SeedData  = require('../seedData').features;
+var Constants = require('../constants');
 
 var _heritageCategories = _.chain(SeedData)
   .pluck('properties.Type')
@@ -15,19 +16,9 @@ var MapStore = Reflux.createStore({
 
   _searchText: '',
 
+  _activeView: Constants.views.map,
+
   _selectedCategories: [],
-
-  getSearchText: function () {
-    return this._searchText;
-  },
-
-  // getFilteredHeritageItems: function () {
-  //   return _.filter(SeedData, function (item) {
-  //     var lcItem = item.Title.toLowerCase();
-
-  //     return lcItem.contains(this._searchText);
-  //   }, this);
-  // },
 
   onSearch: function (searchText) {
     this._searchText = searchText.toLowerCase();
@@ -37,6 +28,25 @@ var MapStore = Reflux.createStore({
   onFilter: function (categories) {
     this._selectedCategories = categories;
     this.trigger();
+  },
+
+  onToggleView: function (viewName) {
+    this._activeView = viewName;
+    this.trigger();
+  },
+
+  getSearchText: function () {
+    return this._searchText;
+  },
+
+  getActiveView: function () {
+    return this._activeView;
+  },
+
+  getFilteredHeritageItems: function () {
+    return _.filter(SeedData, function (item) {
+      return this._filterBySearchText(item) && this._filterByCategories(item);
+    }, this);
   },
 
   getHeritageItems: function () {
@@ -56,6 +66,16 @@ var MapStore = Reflux.createStore({
 
   getHeritageCategories: function () {
     return _.sortBy(_heritageCategories);
+  },
+
+  _filterBySearchText: function (item) {
+    var lcItem = item.properties.Title.toLowerCase();
+
+    return _.isEmpty(this._searchText) || lcItem.indexOf(this._searchText) > -1;
+  },
+
+  _filterByCategories: function (item) {
+    return _.isEmpty(this._selectedCategories) || _.includes(this._selectedCategories, item.properties.Type);
   }
 });
 

@@ -39,7 +39,17 @@ var Map = React.createClass({
       }
     ).addTo(map);
 
-    L.geoJson(items).addTo(map);
+    var marker = new 
+    L.Icon({
+      iconUrl: "images/marker-icon.png"
+    });
+
+    function content (feature,layer) {
+      layer.bindPopup("<h1>" + feature.properties.Title + "</h1>");
+      layer.setIcon(marker);
+    };
+
+    L.geoJson(items, {onEachFeature: content}).addTo(map);
   },
 
   render: function () {

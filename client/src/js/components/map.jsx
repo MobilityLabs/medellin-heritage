@@ -47,7 +47,7 @@ var Map = React.createClass({
       layer.bindPopup(
         '<div class="container">' +
           '<div class="row gallery">' +
-            '<div>' + feature.properties.ImageName + '</div>' + 
+            '<div class="detail-image"><img src=""></div>' + 
           '</div>' +
           '<div class="row info">' +
             '<div class="details col-md-6 col-sm-12">' + 
@@ -57,9 +57,9 @@ var Map = React.createClass({
             '</div>' +
             '<div class="sharing col-md-6 col-sm-12">' +
               '<div class="row">' +
-                '<div class="col-md-4"><p>Share</p></div>' +
-                '<div class="col-md-4"><p>Learn More</p></div>' +
-                '<div class="col-md-4"><p>Directions</p></div>' +
+                '<div class="col-md-4"><p><i class="fa fa-2x fa-share-alt"></i></p><p>Share</p></div>' +
+                '<div class="col-md-4"><p><i class="fa fa-2x fa-google"></i></p><p><a href="https://www.google.com.co/search?q=' + feature.properties.Title + '" target="new">Learn More</a></p></div>' +
+                '<div class="col-md-4"><p><i class="fa fa-2x fa-location-arrow"></i></p><p>Directions</p></div>' +
               '</div>' +
             '</div>' +
           '</div>' +
@@ -80,3 +80,7 @@ var Map = React.createClass({
 });
 
 module.exports = Map;
+
+
+
+

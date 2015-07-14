@@ -20,5 +20,7 @@ To run the app:
 * switch to /client
 * run npm install
 * run gulp
+* switch to /server
+* run npm install
 * start the server using `node server`
 * view it on http://localhost:4000/

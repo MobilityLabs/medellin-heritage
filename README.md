@@ -16,9 +16,9 @@ You will need to create a config.json file in the /client folder.  This will con
 
 To run the app: 
 
-* - clone the repo to your local system
-* - switch to /client
-* - run npm install
-* - run gulp
-* - start the server using `node server`
-* - view it on http://localhost:4000/
+* clone the repo to your local system
+* switch to /client
+* run npm install
+* run gulp
+* start the server using `node server`
+* view it on http://localhost:4000/

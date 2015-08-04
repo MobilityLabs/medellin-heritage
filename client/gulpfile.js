@@ -12,6 +12,9 @@ var merge       = require('merge');
 var less        = require('gulp-less');
 var path        = require('path');
 var htmlreplace = require('gulp-html-replace');
+var gulpif      = require('gulp-if');
+var argv        = require('yargs').argv;
+var production  = !!(argv.production); // true if --production
 
 var config      = require('./config.json');
 
@@ -41,13 +44,13 @@ gulp.task('less', function () {
 
 gulp.task('copy', function () {
   gulp.src('./src/index.html')
-    .pipe(
+    .pipe(gulpif(production,
       htmlreplace({
         analytics: {
           src: config.google_analytics_id,
           tpl: '<script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create", "%s", "auto");ga("send", "pageview");</script>'
         }
-      })
+      }))
     )
     .pipe(gulp.dest('./dist'));
 

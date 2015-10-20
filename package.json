@@ -6,7 +6,7 @@
   "author": "Mobility Labs",
   "license": "ISC",
   "scripts": {
-    "postinstall": "cd ./client && npm install && node_modules/.bin/gulp",
+    "postinstall": "cd ./server && npm install && cd ../client && npm install && node_modules/.bin/gulp --production",
     "start": "node ./server/server.js"
   }
 }
